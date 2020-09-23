@@ -5,4 +5,4 @@ This is a project to have generic bash script to:
 
 3. iterate through the IP address range and ping the each one to see if its reachable and finally print out IP addresses that responded.
 
-Note: this is script was tested on a ubuntu machine. 
+Note: this is script was tested on a ubuntu machine. The script has function thats expects an input parameter to be defined when running the scripts. The parameter should be the IP address of your ethernet. Depending on the linux flavor you are using, you cann easily get the IP using {ifconfig or ip a}
