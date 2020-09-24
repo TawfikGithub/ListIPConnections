@@ -1,11 +1,20 @@
 #!/bin/bash
-ip_ping()
-{
- ping -c 1 $1 > /dev/null
-  [ $? -eq 0 ] && echo Device with IP: $i is up.
-}
 
-for i in 10.0.2.{1..255}
+# get the ip of my ethernet 
+ifconfig | grep "broadcast" | cut -d " " -f 10 | cut -d "." -f 1,2,3 > mynetworkip.txt
+#set a variable to get the ip value from mynetworkip.txt
+MYIP=$(cat mynetworkip.txt)
+
+#created a new file to have list of all IPs in the range
+echo "" > $MYIP.txt
+
+#for loop to ping all the ip in the MYIP range 
+for ip in {1..255}
 do 
-ip_ping $1 & disown
+	ping -b -c 1 $MYIP.$ip | grep "64 bytes" | cut -d " " -f 4 | tr -d ":" >> $MYIP.txt & 
 done
+
+#Perform nmap scan on 
+nmap -iL $MYIP.txt
+exit
+
