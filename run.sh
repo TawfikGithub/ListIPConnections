@@ -14,6 +14,8 @@ do
 	ping -b -c 1 $MYIP.$ip | grep "64 bytes" | cut -d " " -f 4 | tr -d ":" >> $MYIP.txt & 
 done
 
+cat $MYIP.txt # this will print out the IP's that has a response when it was pinged
+
 #Perform nmap scan on 
 nmap -iL $MYIP.txt
 exit
